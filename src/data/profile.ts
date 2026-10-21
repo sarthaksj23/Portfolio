@@ -14,7 +14,7 @@ import type { Profile } from '@/types';
 
 export const profile: Profile = {
   // Your full name (shown in the navbar, hero, and footer)
-  name: '[Your Name]',
+  name: 'Sarthak Jain',
 
   // Professional headline (shown in the hero)
   headline: 'Aspiring Data Analyst | Turning Data into Insights',
@@ -26,10 +26,10 @@ export const profile: Profile = {
   // Your social / contact links
   // Replace the "" with your real URLs. Leave "" to hide a link.
   social: {
-    github: 'https://github.com/[your-username]',
-    linkedin: 'https://linkedin.com/in/[your-username]',
+    github: 'https://github.com/sarthaksj23',
+    linkedin: 'https://linkedin.com/in/sarthak-jain-1a09a8247',
     resume: '/files/[your-resume].pdf',
-    email: 'your.email@example.com',
+    email: 'sarthaksarthak1995@gmail.com',
   },
 
   // Your technical skills, grouped by category
