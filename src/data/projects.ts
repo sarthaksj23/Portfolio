@@ -69,121 +69,135 @@ export const projects: Project[] = [
   // SAMPLE PROJECT 1 — Netflix Data Analysis (SQL)
   // Replace this with your real project when ready.
   // ---------------------------------------------------------------------------
-  {
-    slug: 'netflix-data-analysis',
-    title: 'Netflix Data Analysis',
-    shortDescription:
-      'SQL-based analysis of a Netflix titles dataset including data cleaning, duplicate detection, and advanced analytical queries.',
-    thumbnail:
-      'https://images.pexels.com/photos/5082568/pexels-photo-5082568.jpeg?auto=compress&cs=tinysrgb&h=650&w=940',
-    tools: ['SQL', 'PostgreSQL', 'Excel'],
-    category: 'SQL Analysis',
-    featured: true,
-    isSample: true,
+  
+{
+  slug: 'netflix-content-analysis',
+  title: 'Netflix Content Analysis',
+  shortDescription:
+    'Analyzed Netflix catalogue data using SQL and Power BI to explore content types, ratings, genres, countries, and release trends.',
+  thumbnail: '/files/netflix-logo.png',
+  tools: ['SQL', 'Excel', 'Power BI'],
+  category: 'SQL Analysis',
+  featured: true,
 
-    overview:
-      '[Placeholder] This project explores a dataset of Netflix titles using SQL. The analysis covers data cleaning, validation, duplicate identification, and a series of analytical queries to understand content distribution, trends over time, and genre patterns.',
+  overview:
+    'An end-to-end data analytics project involving data profiling, SQL-based cleaning, dataset preparation, and Power BI visualization to understand the composition of Netflix’s content catalogue.',
 
-    businessProblem:
-      '[Placeholder] A streaming platform wants to understand the composition of its content library — what types of titles are available, how the catalog has grown over time, and which genres are most represented — to inform content acquisition and marketing strategy.',
+  businessProblem:
+    'Understanding the composition of a streaming platform’s catalogue can help stakeholders evaluate its content mix and identify patterns across genres, ratings, countries, and release years. This project explores these patterns using Netflix catalogue metadata.',
 
-    objectives: [
-      '[Placeholder] Clean and validate the dataset for analysis.',
-      '[Placeholder] Identify and handle duplicate records.',
-      '[Placeholder] Analyze the distribution of content by type (Movie vs. TV Show).',
-      '[Placeholder] Examine trends in content additions over time.',
-      '[Placeholder] Identify the most common genres and countries of origin.',
-    ],
+  objectives: [
+    'Analyze the distribution of Movies and TV Shows.',
+    'Examine content ratings and genre/category distribution.',
+    'Explore country-wise content representation.',
+    'Analyze release-year and content-addition trends.',
+    'Prepare a cleaned dataset for visualization and reporting.'
+  ],
 
-    dataset:
-      '[Placeholder] The dataset used is a publicly available Netflix titles CSV file containing columns such as show_id, type, title, director, cast, country, date_added, release_year, rating, duration, and listed_in. Replace this with your actual data source.',
+  dataset:
+    'Netflix catalogue dataset containing title information, content type, director, cast, country, date added, release year, rating, duration, genre/category, and description. The project files contain 8,807 original records.',
 
-    dataCleaning:
-      '[Placeholder] The data cleaning process included: checking for missing values in key columns, standardizing date formats, trimming whitespace from text fields, and verifying data types. Duplicate records were identified using a combination of title and release_year.',
+  dataCleaning:
+    'Performed data profiling and cleaning using SQL, created intermediate and final cleaned datasets, and prepared CSV and Excel versions for analysis. Some missing values were inferred from patterns in other records; these assumptions and row deletions require validation.',
 
-    methodology:
-      '[Placeholder] The analysis followed a structured SQL workflow: (1) data profiling with COUNT, DISTINCT, and NULL checks; (2) data cleaning with UPDATE and string functions; (3) exploratory queries using GROUP BY, aggregations, and window functions; (4) trend analysis using date extraction and ordering.',
+  methodology:
+    'Inspected the original dataset, compared dataset versions, used SQL scripts for cleaning and investigation, generated summary tables, and used Power BI for catalogue analysis and visualization.',
 
-    code: [
-      {
-        language: 'sql',
-        label: 'Data profiling — check for missing values',
-        code: `-- Count missing values in key columns
-SELECT
-  SUM(CASE WHEN title IS NULL THEN 1 ELSE 0 END) AS missing_titles,
-  SUM(CASE WHEN director IS NULL THEN 1 ELSE 0 END) AS missing_directors,
-  SUM(CASE WHEN country IS NULL THEN 1 ELSE 0 END) AS missing_countries,
-  SUM(CASE WHEN date_added IS NULL THEN 1 ELSE 0 END) AS missing_dates
-FROM netflix_titles;`,
-      },
-      {
-        language: 'sql',
-        label: 'Identify duplicate records',
-        code: `-- Find potential duplicates by title and release year
-SELECT title, release_year, COUNT(*) AS record_count
-FROM netflix_titles
-GROUP BY title, release_year
-HAVING COUNT(*) > 1
-ORDER BY record_count DESC;`,
-      },
-      {
-        language: 'sql',
-        label: 'Content distribution by type',
-        code: `-- Compare Movies vs TV Shows
-SELECT
-  type,
-  COUNT(*) AS total_titles,
-  ROUND(COUNT(*) * 100.0 / SUM(COUNT(*)) OVER(), 2) AS percentage
-FROM netflix_titles
-GROUP BY type
-ORDER BY total_titles DESC;`,
-      },
-    ],
+  code: [
+    {
+      language: 'sql',
+      label: 'Initial profiling and cleaning',
+      code: '-- See the project SQL file for the complete queries.'
+    },
+    {
+      language: 'sql',
+      label: 'Follow-up cleaning',
+      code: '-- Includes additional cleaning and data preparation.'
+    },
+    {
+      language: 'sql',
+      label: 'Staging and investigation',
+      code: '-- See the project SQL file for the investigation queries.'
+    }
+  ],
 
-    dashboards: [
-      {
-        type: 'screenshot',
-        screenshotUrl:
-          'https://images.pexels.com/photos/577210/pexels-photo-577210.jpeg?auto=compress&cs=tinysrgb&h=650&w=940',
-        caption:
-          '[Placeholder] Dashboard screenshot. Replace with your actual dashboard embed or screenshot.',
-      },
-    ],
+  dashboards: [
+    {
+      type: 'powerbi',
+      embedUrl: 'https://app.powerbi.com/view?r=YOUR_EMBED_URL',
+      caption:
+        'Netflix catalogue analysis dashboard. Open the PBIX file in Power BI Desktop to review the report.'
+    }
+  ],
 
-    keyFindings: [
-      '[Placeholder] Describe your actual finding here, e.g. "Movies make up approximately 70% of the catalog."',
-      '[Placeholder] Describe a second finding, e.g. "Content additions peaked in 2019."',
-    ],
+  keyFindings: [
+    'The original dataset contains 8,807 records.',
+    'The supplied final cleaned dataset contains 8,390 records.',
+    'The final dataset includes both Movies and TV Shows.',
+    'The analysis explores content ratings, genre/category mentions, country representation, release years, and dates added.',
+    'The final dataset has 417 fewer records than the original, so the deletion logic needs validation before final reporting.'
+  ],
 
-    recommendations: [
-      '[Placeholder] Replace with a real recommendation based on your findings.',
-    ],
+  recommendations: [
+    'Validate row deletions and document the reason for each exclusion.',
+    'Review inferred missing values before using them in business conclusions.',
+    'Resolve unparsed date-added values before presenting time-based trends.',
+    'Use Power BI visuals to communicate content mix, ratings, genres, countries, and release trends.',
+    'Avoid making popularity or revenue claims because the dataset does not contain viewership or revenue metrics.'
+  ],
 
-    files: [
-      {
-        name: 'netflix_analysis.sql',
-        type: 'SQL',
-        description: '[Placeholder] Main SQL script with all queries.',
-        url: '',
-      },
-      {
-        name: 'netflix_titles.csv',
-        type: 'CSV',
-        description: '[Placeholder] Source dataset (link to external source).',
-        url: '',
-      },
-    ],
+  files: [
+    {
+      name: '01-initial-profiling-and-cleaning.sql',
+      type: 'SQL',
+      description: 'Initial data profiling and cleaning queries.',
+      url: 'https://github.com/sarthaksj23/Netflix-Content-Analysis/blob/main/netflix-content-analysis-project/netflix-content-analysis/sql/01-initial-profiling-and-cleaning.sql'
+    },
+    {
+      name: '02-follow-up-cleaning.sql',
+      type: 'SQL',
+      description: 'Additional cleaning and data preparation queries.',
+      url: 'https://github.com/sarthaksj23/Netflix-Content-Analysis/blob/main/netflix-content-analysis-project/netflix-content-analysis/sql/02-follow-up-cleaning.sql'
+    },
+    {
+      name: '03-staging-and-investigation.sql',
+      type: 'SQL',
+      description: 'Staging and data investigation queries.',
+      url: 'https://github.com/sarthaksj23/Netflix-Content-Analysis/blob/main/netflix-content-analysis-project/netflix-content-analysis/sql/03-staging-and-investigation.sql'
+    },
+    {
+      name: 'netflix-cleaned-final.xlsx',
+      type: 'Excel',
+      description: 'Final cleaned dataset in Excel format.',
+      url: 'https://github.com/sarthaksj23/Netflix-Content-Analysis/blob/main/netflix-content-analysis-project/netflix-content-analysis/data/working-files/netflix-cleaned-final.xlsx'
+    },
+    {
+      name: 'netflix-visualization.pbix',
+      type: 'Power BI',
+      description: 'Power BI report file for opening in Power BI Desktop.',
+      url: 'https://github.com/sarthaksj23/Netflix-Content-Analysis/blob/main/netflix-content-analysis-project/netflix-content-analysis/power-bi/netflix-visualization.pbix'
+    },
+    {
+      name: 'netflix-project-review-report.pdf',
+      type: 'PDF',
+      description: 'Project findings, data-quality review, limitations, and next steps.',
+      url: 'https://github.com/sarthaksj23/Netflix-Content-Analysis/blob/main/netflix-content-analysis-project/netflix-content-analysis/documentation/netflix-project-review-report.pdf'
+    }
+  ],
 
-    githubUrl: 'https://github.com/[your-username]/netflix-data-analysis',
+  references: [
+    'https://www.kaggle.com/datasets/shivamb/netflix-shows'
+  ],
 
-    references: [
-      '[Placeholder] Add references, data sources, or inspiration here.',
-    ],
+  limitations: [
+    'The dataset describes catalogue metadata, not actual viewership, popularity, revenue, or customer engagement.',
+    'The final dataset contains 417 fewer records than the original; deletion rules need verification.',
+    'Some missing values were inferred and should not be treated as verified facts.',
+    'Some date-added values require parsing and validation.',
+    'The supplied Power BI dashboard has not been independently audited.'
+  ]
+},
 
-    limitations: [
-      '[Placeholder] Note any limitations, e.g. "Dataset is a snapshot and may not reflect current catalog."',
-    ],
-  },
 
   // ---------------------------------------------------------------------------
   // SAMPLE PROJECT 2 — NYC Motor Vehicle Collision Analysis (Excel)
