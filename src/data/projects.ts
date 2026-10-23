@@ -194,7 +194,7 @@ update newnet set country = "Not Given" where country is null;`,
         name: 'uncleaned netflix.csv',
         type: 'CSV',
         description: 'Original raw dataset (8,807 rows) before any cleaning.',
-        url: '',  'https://github.com/sarthaksj23/Netflix-Content-Analysis/blob/main/netflix-content-analysis-project/netflix-content-analysis/data/raw/netflix-original-uncleaned.csv'
+        url: 'https://github.com/sarthaksj23/Netflix-Content-Analysis/blob/main/netflix-content-analysis-project/netflix-content-analysis/data/raw/netflix-original-uncleaned.csv',
       },
       {
         name: 'visualization.pbix',
