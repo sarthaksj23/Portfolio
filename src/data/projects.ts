@@ -219,88 +219,110 @@ update newnet set country = "Not Given" where country is null;`,
 
 
   // ---------------------------------------------------------------------------
-  // SAMPLE PROJECT 2 — NYC Motor Vehicle Collision Analysis (Excel)
+  // PROJECT 2 — NYC Motor Vehicle Collision Analysis 
   // Replace this with your real project when ready.
   // ---------------------------------------------------------------------------
   {
-    slug: 'nyc-collision-analysis',
-    title: 'NYC Motor Vehicle Collision Analysis',
-    shortDescription:
-      'Excel-based data profiling and cleaning of NYC motor vehicle collision data with data quality checks and exploratory analysis.',
-    thumbnail:
-      'https://images.pexels.com/photos/4062988/pexels-photo-4062988.jpeg?auto=compress&cs=tinysrgb&h=650&w=940',
+    slug: 'nyc-motor-vehicle-collisions-2020',
+    title: 'NYC Motor Vehicle Collisions 2020: Data Profiling & Excel Analysis',
+    shortDescription: 'Profiled 74,881 NYC collision records in Excel and used pivot tables to show when, where and how severely collisions occurred in 2020.',
+    thumbnail: 'https://www.google.com/imgres?q=nyc%20cty%20redlght%20top%20vew%20traffc&imgurl=https%3A%2F%2Ftraffictickets.com%2Fwp-content%2Fuploads%2F2021%2F04%2Fred-light-1024x683.jpg.webp&imgrefurl=https%3A%2F%2Ftraffictickets.com%2Fnew-york%2Ftraffic-tickets%2Frunning-red-light%2F&docid=0_qeFag2mYx9VM&tbnid=IbfQylnp3nB35M&vet=12ahUKEwj0gYXC9NCXAxWkjuEIHXh9JVYQnPAOegUIyAMQAA..i&w=1024&h=683&hcb=2&ved=2ahUKEwj0gYXC9NCXAxWkjuEIHXh9JVYQnPAOegUIyAMQAA',  // add a screenshot of your pivot chart / analysis sheet
     tools: ['Excel'],
-    category: 'Excel',
-    featured: true,
-    isSample: true,
+    category: 'Excel Analysis',
+    featured: false,
 
-    overview:
-      '[Placeholder] This project uses Microsoft Excel to profile, clean, and analyze New York City motor vehicle collision data. The analysis focuses on data quality assessment, exploratory analysis, and identifying patterns in collision frequency and contributing factors.',
-
-    businessProblem:
-      '[Placeholder] A city transportation department wants to understand where and when motor vehicle collisions are most frequent and what factors contribute to them, to inform road safety initiatives.',
-
+    overview: 'This project analyses 74,881 police-reported motor vehicle collisions in New York City between 1 January and 29 August 2020. I profiled every one of the 29 columns for missing values, duplicates, invalid values and inconsistent spellings, added three derived fields (day of week, hour of day and severity group), and used pivot tables to answer when collisions happen, which boroughs and streets are most affected, and how severe the outcomes are.',
+    businessProblem: 'City transport and road-safety teams need to know when and where collisions cluster in order to target enforcement, signage and awareness campaigns. The raw collision log is large and incomplete (a third of the records have no borough), so before drawing conclusions the data has to be profiled to see what can and cannot be trusted, and then summarised in a way that is easy to act on.',
     objectives: [
-      '[Placeholder] Profile the dataset for completeness and quality.',
-      '[Placeholder] Clean inconsistent and missing data.',
-      '[Placeholder] Explore temporal patterns (by hour, day, month).',
-      '[Placeholder] Identify high-frequency boroughs and intersections.',
-      '[Placeholder] Analyze contributing factors to collisions.',
+      'Profile the raw data: data types, missing values, unique values, ranges, duplicates and invalid values.',
+      'Find out when collisions occur most often: day of week, hour of day and month.',
+      'Compare collision counts across boroughs, and be clear about the effect of missing borough data.',
+      'Classify each collision as Fatal, Injury or No injury recorded and measure the split.',
+      'Identify the streets with the most collisions and how severe those collisions are.',
     ],
-
-    dataset:
-      '[Placeholder] The dataset is the NYC Motor Vehicle Collisions dataset, available from NYC Open Data. It includes fields such as crash date, crash time, borough, zip code, latitude, longitude, number of injuries, number of deaths, and contributing factors. Replace with your actual data source.',
-
-    dataCleaning:
-      '[Placeholder] Data cleaning steps included: removing rows with missing crash dates, standardizing time formats, filling or flagging missing borough values, validating geographic coordinates, and removing exact duplicates. Excel features used: Remove Duplicates, Text to Columns, Find & Replace, and conditional formatting for outlier detection.',
-
-    methodology:
-      '[Placeholder] The analysis used Excel features including: PivotTables for summarizing collisions by borough and time, charts for visualizing trends, formulas (COUNTIF, SUMIF, AVERAGEIF) for aggregation, and conditional formatting to highlight high-risk areas.',
-
-    code: [],
-
-    dashboards: [
+    dataset: 'NYC Open Data motor vehicle collisions extract for 2020: 74,881 rows and 29 columns covering crash date and time, borough, ZIP code, coordinates, street names, counts of persons, pedestrians, cyclists and motorists injured or killed, up to five contributing factors and up to five vehicle types per collision. COLLISION_ID is unique for every row. The data runs from 1 January to 29 August 2020 (242 days).',
+    dataCleaning: 'I started with a full data profile in Excel (data type, missing count and percentage, unique values, min/max/average, zero counts and invalid-value checks on coordinates). COLLISION_ID has no duplicates. The main quality issues are: borough and ZIP code missing in 34.4% of rows, latitude, longitude and location missing in 7.9%, on-street name missing in 26.0%, cross street in 52.4% and off-street in 74.0%, and inconsistent spellings in all five vehicle type columns. I deliberately did not guess missing boroughs or streets; they stay blank and are shown as "(blank)" in the analysis so that borough comparisons are read with the gap in mind. I then added three calculated columns to the cleaned table: CRASH_DAY, CRASH_HOUR and SEVERITY_GROUP.',
+    methodology: 'Step 1, profile the data in Excel using formulas such as COUNTBLANK, MIN/MAX, COUNTIF and unique-value counts, and a Zip-to-Borough pivot to test whether blank boroughs could be recovered from the ZIP code (they could not, because rows missing a borough also have no ZIP). Step 2, build derived fields in an Excel table: weekday from the crash date, hour from the crash time, and a severity group (Fatal if anyone was killed, otherwise Injury if anyone was injured, otherwise No injury recorded). Step 3, build pivot tables on COLLISION_ID counts for time, borough, severity and street, and calculate severity percentages with GETPIVOTDATA. Step 4, write the findings up in an Analysis sheet.',
+    code: [
       {
-        type: 'screenshot',
-        screenshotUrl:
-          'https://images.pexels.com/photos/34069/pexels-photo.jpg?auto=compress&cs=tinysrgb&h=650&w=940',
-        caption:
-          '[Placeholder] Excel dashboard screenshot. Replace with your actual dashboard screenshot or embed.',
+        language: 'excel',
+        label: 'Day of week and hour of day from the crash date and time',
+        code: `CRASH_DAY  =TEXT([@[CRASH DATE]],"dddd")
+CRASH_HOUR =HOUR([@[CRASH TIME]])`,
+      },
+      {
+        language: 'excel',
+        label: 'Severity group for each collision',
+        code: `SEVERITY_GROUP =IF([@[NUMBER OF PERSONS KILLED]]>0,"Fatal",
+                  IF([@[NUMBER OF PERSONS INJURED]]>0,"Injury","No injury recorded"))`,
+      },
+      {
+        language: 'excel',
+        label: 'Severity percentage from the pivot table',
+        code: `=GETPIVOTDATA("COLLISION_ID",$A$3,"SEVERITY_GROUP","Injury")/74881*100`,
+      },
+      {
+        language: 'excel',
+        label: 'Share of collisions with injury or fatality, by street',
+        code: `=(B5+C5)/E5*100    // (Fatal + Injury) / Grand Total`,
       },
     ],
-
     keyFindings: [
-      '[Placeholder] Replace with your actual finding, e.g. "Collisions are most frequent during evening rush hours."',
-      '[Placeholder] Replace with a second finding, e.g. "Brooklyn has the highest number of reported collisions."',
+      'The dataset holds 74,881 collisions over 242 days (1 Jan to 29 Aug 2020), about 309 per day, with 27,448 people injured and 144 killed.',
+      'Friday has the most collisions (12,271, 16.4% of the total) and Sunday the fewest (9,003, 12.0%). Friday is about 36% higher than Sunday.',
+      'The afternoon commute dominates. 4 PM is the busiest hour with 5,219 collisions, followed by 2 PM (5,016) and 5 PM (4,974). The five hours from 2 PM to 6:59 PM contain about 33% of all collisions.',
+      'January had the most collisions (14,287) and April the fewest (4,116), about 71% below January. The sharp drop from March to April is consistent with the COVID-19 lockdown, though the dataset itself contains no cause.',
+      'Among records with a borough, Brooklyn has the most collisions (16,907, 34.4%), followed by Queens (14,017, 28.5%), the Bronx (9,417, 19.2%), Manhattan (7,353, 15.0%) and Staten Island (1,446, 2.9%).',
+      'About 72.6% of collisions (54,371) have no injury recorded, 27.2% (20,375) involve an injury and 0.18% (135) are fatal.',
+      'Pedestrians are far more exposed to fatal outcomes than to injury: they make up 14.9% of people injured (4,099 of 27,448) but 38.9% of people killed (56 of 144). Motorists account for 73.1% of injuries and 54.9% of deaths.',
+      'The streets with the most recorded collisions are highways and parkways: Belt Parkway (about 1,240), Long Island Expressway (745), Brooklyn Queens Expressway (about 740), FDR Drive (about 730) and Major Deegan Expressway (591).',
+      'Driver inattention or distraction is the most common specified first contributing factor (19,123 collisions, 25.5%). A further 26.0% are recorded as "Unspecified". Sedans (45.9%) and SUVs/station wagons (36.8%) are the most common first vehicle type.',
     ],
-
     recommendations: [
-      '[Placeholder] Replace with a real recommendation based on your findings.',
+      'Target enforcement and awareness campaigns at the 2 PM to 6 PM window and at Fridays, when collision counts are highest.',
+      'Prioritise pedestrian protection measures. Pedestrians are a small share of injuries but close to 4 in 10 deaths.',
+      'Review the highways and parkways that top the street ranking (Belt Parkway, Long Island Expressway, Brooklyn Queens Expressway, FDR Drive) for speed, merging and lane-use issues.',
+      'Recover missing boroughs: 21,189 of the 25,741 records with no borough have coordinates, so a map-based lookup could fill most of them and make borough comparisons reliable.',
+      'Standardise vehicle type entries and reduce "Unspecified" contributing factors at the point of data capture.',
     ],
-
     files: [
       {
-        name: 'nyc_collision_analysis.xlsx',
-        type: 'Excel',
-        description: '[Placeholder] Main Excel workbook with analysis and charts.',
-        url: '',
+        name: 'NYC Accidents 2020 Original.csv',
+        type: 'CSV',
+        description: 'Original raw collision data (74,881 rows, 29 columns).',
+        url: 'https://github.com/sarthaksj23/NYC-Collisions-Project/blob/main/NYC%20Accidents%202020%20Original.csv',  // 14.7 MB: host externally (GitHub / Drive) and paste the link here
       },
       {
-        name: 'data_cleaning_notes.pdf',
-        type: 'PDF',
-        description: '[Placeholder] Documentation of cleaning steps.',
-        url: '',
+        name: 'Profiling 1.xlsx',
+        type: 'Excel',
+        description: 'Data profiling workbook: column-level quality checks and Zip-to-Borough pivot.',
+        url: 'https://github.com/sarthaksj23/NYC-Collisions-Project/blob/main/Profiling%201.xlsx',  // 13.9 MB: host externally
+      },
+      {
+        name: 'Cleaning.xlsx',
+        type: 'Excel',
+        description: 'Analysis workbook: derived fields, pivot tables for time, borough, severity and location, and written findings.',
+        url: 'https://github.com/sarthaksj23/NYC-Collisions-Project/blob/main/Cleaning.xlsx',  // 25.6 MB: host externally
+      },
+      {
+        name: 'extra profiling.csv',
+        type: 'CSV',
+        description: 'Column profile summary: data types, missing counts, unique values and notes.',
+        url: 'https://github.com/sarthaksj23/NYC-Collisions-Project/blob/main/extra%20profiling.csv',
       },
     ],
-
-    githubUrl: 'https://github.com/[your-username]/nyc-collision-analysis',
-
+    githubUrl: 'https://github.com/sarthaksj23/NYC-Collisions-Project',  // replace with your repo
     references: [
-      '[Placeholder] NYC Open Data — Motor Vehicle Collisions. Add the actual link.',
+      'NYC Open Data: Motor Vehicle Collisions (Crashes), 2020 extract.',
     ],
-
     limitations: [
-      '[Placeholder] Note limitations, e.g. "Data relies on police reports and may contain reporting biases."',
+      'Borough is missing for 34.4% of collisions, so borough rankings cover only 65.6% of the data. Counts are also raw totals, not adjusted for population, road length or traffic volume, so they do not show which borough is the riskiest.',
+      'The data covers 1 January to 29 August 2020 only, and the lockdown period distorts monthly comparisons, so January being the busiest month should not be read as a seasonal pattern.',
+      'Missing values were left blank rather than imputed, and vehicle type spellings were documented but not standardised, so vehicle-type counts are approximate.',
+      '26% of first contributing factors are "Unspecified", and about 26% of records have no on-street name, which limits location and cause analysis.',
+      'Street rankings reward long roads: highways appear at the top partly because they are long and busy, not necessarily because they are the most dangerous per kilometre.',
+      '63 records have coordinates of 0,0 (outside New York City) and should be excluded from any map.',
+      'Severity is a simple rule based on recorded injuries and deaths; it does not capture how serious an injury was.',
     ],
   },
 ];
