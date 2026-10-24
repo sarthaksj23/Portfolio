@@ -124,7 +124,7 @@ export function HomePage({ navigate }: HomePageProps) {
         <div className="rounded-3xl bg-gradient-to-r from-primary-600 to-accent-600 p-8 text-center sm:p-12">
           <h2 className="text-2xl font-bold text-white sm:text-3xl">Let's Connect</h2>
           <p className="mx-auto mt-3 max-w-xl text-primary-50">
-            I'm actively seeking Data Analyst Intern and Junior Data Analyst opportunities. Feel free to reach out.
+            I'm actively seeking Data Analyst and Performance Marketing opportunities. Feel free to reach out.
           </p>
           <div className="mt-6 flex justify-center">
             <SocialLinksBar social={profile.social} size="large" />
