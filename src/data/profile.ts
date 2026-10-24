@@ -21,7 +21,7 @@ export const profile: Profile = {
 
   // Short introduction (shown in the hero)
   intro:
-    'I am an aspiring data analyst passionate about cleaning, exploring, and visualizing data to uncover insights that drive better decisions. I work with SQL, Python, Excel, and BI tools to turn raw data into clear, actionable stories.',
+    'Hi, I\'m Sarthak, with an interest in both data analytics and performance marketing. I enjoy working with data using SQL, Excel, and Power BI to identify trends, build dashboards, and generate actionable insights. Alongside analytics, I\'m interested in digital advertising, campaign performance analysis, and understanding marketing metrics such as CTR, CPC, CPA, and ROAS. I aim to combine analytical thinking with marketing insights to understand business performance and support data-driven decisions.',
 
   // Your social / contact links
   // Replace the "" with your real URLs. Leave "" to hide a link.
@@ -44,8 +44,12 @@ export const profile: Profile = {
       skills: ['Excel', 'Power BI', 'Tableau', 'Pandas', 'NumPy'],
     },
     {
+      category: 'Performance Marketing',
+      skills: ['Google Ads', 'Meta Ads', 'GA4', 'Meta Business Suite', 'Looker Studio', 'Campaign Performance Analysis'],
+    },
+    {
       category: 'Tools & Workflow',
-      skills: ['Git', 'GitHub', 'Jupyter Notebook', 'VS Code'],
+      skills: ['Git', 'GitHub', 'Jupyter Notebook', 'VS Code', 'AI Tools'],
     },
   ],
 };
