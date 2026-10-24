@@ -28,7 +28,7 @@ export const profile: Profile = {
   social: {
     github: 'https://github.com/sarthaksj23',
     linkedin: 'https://linkedin.com/in/sarthak-jain-1a09a8247',
-    resume: '/files/[your-resume].pdf',
+    resume: 'https://drive.google.com/file/d/1CVcwz4PRVIdb6NomWIf3RHcXBjeAvYkC/view?usp=sharing',
     email: 'sarthaksarthak1995@gmail.com',
   },
 
